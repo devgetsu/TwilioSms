@@ -1,4 +1,6 @@
 
+using TwilioSms.API.Services;
+
 namespace TwilioSms.API
 {
     public class Program
@@ -8,6 +10,8 @@ namespace TwilioSms.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddScoped<ISmsService, SmsService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
