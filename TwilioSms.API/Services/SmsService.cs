@@ -1,5 +1,7 @@
 ﻿using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 using Twilio.Rest.Verify.V2.Service;
+using Twilio.Types;
 
 namespace TwilioSms.API.Services
 {
@@ -21,13 +23,13 @@ namespace TwilioSms.API.Services
 
         public void SendSms(string phoneNumber)
         {
-            var verification = VerificationResource.Create(
-                to: phoneNumber,
-                channel: "sms",
-                pathServiceSid: _serviceSid
-            );
+            var messageOptions = new CreateMessageOptions(
+                new PhoneNumber(phoneNumber));
+            messageOptions.From = new PhoneNumber("+19494385214");
+            messageOptions.Body = "This is static text.";
 
-            Console.WriteLine($"Verification SID: {verification.Sid}");
+            var message = MessageResource.Create(messageOptions);
+            Console.WriteLine($"Message Body: {message.Body}");
         }
     }
 }
